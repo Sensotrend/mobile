@@ -10,6 +10,10 @@ buildscript {
     supportLibVersion = '28.0.0'
     kotlinVersion = '1.3.21'
     repositoryUrl = "file:${System.env.HOME}/.m2/repository/"
+
+    // Used by react-native-device-info for dependency com.google.android.gms:play-services-gcm.
+    // Also used by app/build.gradle for same dependency.
+    googlePlayServicesVersion = "16.1.0"
   }
   repositories {
     google()

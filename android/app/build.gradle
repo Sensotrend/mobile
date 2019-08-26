@@ -38,11 +38,16 @@ def getVersionCode = { ->
 def getPassword(String keyChain) {
     def stdout = new ByteArrayOutputStream()
     def stderr = new ByteArrayOutputStream()
-    exec {
-        commandLine 'security', '-q', 'find-generic-password', '-s', keyChain, '-w'
-        standardOutput = stdout
-        errorOutput = stderr
-        ignoreExitValue true
+    try {
+        exec {
+            commandLine 'security', '-q', 'find-generic-password', '-s', keyChain, '-w'
+            standardOutput = stdout
+            errorOutput = stderr
+            ignoreExitValue true
+        }
+    }
+    catch (ignored) {
+        // exec raises exception if "security" is not executable, which is the case in non-Mac OSes.
     }
     stdout.toString().trim()
 }
@@ -90,7 +95,10 @@ android {
       storeFile = file('../debug.keystore')
     }
     release {
-      storeFile = isRunningOnTravis ? file("../../release-keystore.jks") : file(System.getenv("TIDEPOOL_KEYSTORE_FILE"))
+      def _keystoreFilename = System.getenv("TIDEPOOL_KEYSTORE_FILE")
+      if (isRunningOnTravis || (_keystoreFilename != null && !_keystoreFilename.isEmpty())) {
+        storeFile = isRunningOnTravis ? file("../../release-keystore.jks") : file(_keystoreFilename)
+      }
       storePassword = isRunningOnTravis ? System.getenv("keystore_password") : getPassword("tidepool_keystore_store_password")
       signingConfigs.release.keyAlias = isRunningOnTravis ? System.getenv("keystore_alias") : System.getenv("TIDEPOOL_KEYSTORE_KEY_ALIAS")
       signingConfigs.release.keyPassword = isRunningOnTravis ? System.getenv("keystore_alias_password") : getPassword("tidepool_keystore_key_password")

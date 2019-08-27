@@ -56,7 +56,7 @@ class DebugSettingsApiEnvironmentList extends PureComponent {
           marginLeft={15}
           marginBottom={8}
         >
-          {"Tidepool Environment".toLocaleUpperCase()}
+          {"Environment".toLocaleUpperCase()}
         </glamorous.Text>
         <glamorous.FlatList
           borderTopWidth={1}

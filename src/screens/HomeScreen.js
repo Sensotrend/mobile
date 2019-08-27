@@ -99,9 +99,9 @@ class HomeScreen extends PureComponent {
 
     try {
       await MailComposer.composeAsync({
-        subject: "How to set up the Tidepool Uploader",
+        subject: "How to set up the Uploader",
         body:
-          "Please go to the following link on your computer to learn about setting up the Tidepool Uploader: http://support.tidepool.org/article/6-how-to-install-or-update-the-tidepool-uploader-gen",
+          "Please go to the following link on your computer to learn about setting up the Uploader: http://support.tidepool.org/article/6-how-to-install-or-update-the-tidepool-uploader-gen",
         recipients: [currentUserEmail],
       });
     } catch (error) {

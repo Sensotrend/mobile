@@ -7,12 +7,12 @@ import DrawerButton from "./DrawerButton";
 class DrawerSupportButton extends PureComponent {
   onPress = () => {
     const { navigateSupport } = this.props;
-    Metrics.track({ metric: "Clicked Tidepool Support (Hamburger)" });
+    Metrics.track({ metric: "Clicked Support (Hamburger)" });
     navigateSupport();
   };
 
   render() {
-    return <DrawerButton onPress={this.onPress} title="Tidepool Support" />;
+    return <DrawerButton onPress={this.onPress} title="Support" />;
   }
 }
 
